@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class GlobalAdviceController {
     private static final String VIOLATION_ERROR_MSG_PREFIX = "Отсутствуют обязательные параметры: ";
+
     /**
      * Обработка ConstraintViolationException.
      *
@@ -38,7 +39,7 @@ public class GlobalAdviceController {
     public ResponseEntity<ApiErrorResponse> handleBaseServiceExceptions(BaseServiceException exc) {
         return ResponseEntity
                 .status(exc.getStatus())
-                .body(toErrorResponse(exc.getStatus(), exc.getMessage()));
+                .body(toErrorResponse(exc.getStatus(), concatErrorMessagesIfExists(exc.getMessage(), exc.getCause())));
     }
 
     @ExceptionHandler(Exception.class)
@@ -55,6 +56,14 @@ public class GlobalAdviceController {
                 message,
                 LocalDateTime.now()
         );
+    }
+
+    private String concatErrorMessagesIfExists(String serviceMessage, Throwable cause) {
+        if (cause != null && cause.getMessage() != null) {
+            return String.format("%s\n%s", serviceMessage, cause.getMessage());
+        } else {
+            return serviceMessage;
+        }
     }
 
 

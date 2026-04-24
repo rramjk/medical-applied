@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Service ###
+src/main/resources/db/0.0.1/medicals-fill-script.sql

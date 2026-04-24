@@ -9,14 +9,14 @@ import org.springframework.web.client.RestClient;
 
 @Configuration
 @RequiredArgsConstructor
-public class DeepseekAiWebClientConfig {
-    private final DeepseekAiConfig config;
+public class GeminiAiWebClientConfig {
+    private final GeminiAiConfig config;
+    private static final String GOOG_API_KEY_HEADER = "x-goog-api-key";
 
     @Bean
-    public RestClient  deepseekAiRestClient() {
+    public RestClient aiRestClient() {
         return RestClient.builder()
-                .baseUrl(config.getBaseUrl())
-                .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + config.getApiKey())
+                .defaultHeader(GOOG_API_KEY_HEADER, config.getApiKey())
                 .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .build();
     }

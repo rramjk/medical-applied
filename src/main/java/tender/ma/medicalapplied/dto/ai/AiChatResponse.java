@@ -1,18 +1,25 @@
 package tender.ma.medicalapplied.dto.ai;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public record AiChatResponse(
-        List<Choice> choices
+        ResponseContent content,
+        String finishReason,
+        Integer index
 ) {
-    public record Choice(
-            Message message
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record ResponseContent(
+            List<ResponsePart> parts,
+            String role
     ) {
     }
-
-    public record Message(
-            String role,
-            String content
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record ResponsePart(
+            String text,
+            String thoughtSignature
     ) {
     }
 }

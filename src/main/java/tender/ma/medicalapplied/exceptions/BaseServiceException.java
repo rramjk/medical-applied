@@ -16,4 +16,9 @@ public class BaseServiceException extends RuntimeException {
         super(message.getMessage());
         this.status = status;
     }
+
+    public BaseServiceException(String message, Throwable cause, HttpStatus status) {
+        super(message, cause);
+        this.status = status;
+    }
 }

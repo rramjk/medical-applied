@@ -13,13 +13,21 @@ yml-vars:
 server:
   port: ${yml-vars.app.port}
   baseUrl: ${yml-vars.app.baseUrl}:${yml-vars.app.port}
+  ssl:
+    key-store: keystore.p12
+    key-store-password: ${SSL_KEY_STORE_PASSWORD:123456}
+    keyStoreType: PKCS12
+    keyAlias: tomcat
+    enabled: ${SSL_ENABLED:false}
 
 spring:
   ai:
-    deepseek:
-      model: ${DEEPSEEK_MODEL:deepseek-reason}
-      base-url: ${DEEPSEEK_BASE_URL:https://api.deepseek.com}
-      api-key: ${DEEPSEEK_API_KEY:}
+    gemini:
+      api-key: ${GEMINI_AI_API_KEY:ZOXs23ASQ_WiFVW3DL0hXJ7nFvhUDB1uPxCw}
+      base-url: ${GEMINI_AI_BASE_URL:https://generativelanguage.googleapis.com/v1beta/models}
+      action: ${GEMINI_AI_ACTION:generateContent}
+      model: ${GEMINI_MODEL_NAME:gemini-flash-latest}
+      url: ${spring.ai.gemini.base-url}/${spring.ai.gemini.model}:${spring.ai.gemini.action}
   application:
     name: medical-applied
   data:
@@ -37,8 +45,8 @@ spring:
   mail:
     port: 587
     host: smtp.gmail.com
-    username: test@gmail.com
-    password: test
+    username: ${MAIL_USERNAME:test@gmail.com}
+    password: ${MAIL_PASSWORD:123456}
     properties:
       mail:
         smtp:
@@ -75,7 +83,7 @@ service:
 
   token:
     signing:
-      key: TEST_TEST
+      key: ${TOKEN_SIGNING_KEY:123456}
 
 springdoc:
   api-docs:
