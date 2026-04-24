@@ -98,4 +98,16 @@
         </rollback>
     </changeSet>
 
+    <changeSet context="default" author="Rushan Ramazanov" id="update-admin-entity-in-table-ma-users">
+        <comment>Обновление сущности admin в ma_users</comment>
+        <sql>
+            <![CDATA[
+            UPDATE ma_users SET user_consent=true, email_verified=true, privacy_consent=true WHERE id = 'ffa1fcc4-537c-438d-b1c8-ce08ff47ff6c';
+            ]]>
+        </sql>
+        <rollback>
+            UPDATE ma_users SET user_consent=false, email_verified=false, privacy_consent=false WHERE id = 'ffa1fcc4-537c-438d-b1c8-ce08ff47ff6c';
+        </rollback>
+    </changeSet>
+
 </databaseChangeLog>
