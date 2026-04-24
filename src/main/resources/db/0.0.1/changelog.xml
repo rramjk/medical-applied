@@ -60,7 +60,7 @@
 
     <changeSet  context="default" author="Rushan Ramazanov" id="fill-medical-relations-into-ma-medicals-table">
         <comment>Заполнение записями таблицу ma_medicals</comment>
-        <sqlFile path="medicals-fill-script.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="medicals-fill-script-example.sql" relativeToChangelogFile="true"/>
         <rollback>
             TRUNCATE TABLE ma_medicals;
         </rollback>
