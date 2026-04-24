@@ -95,6 +95,4 @@ springdoc:
 
 logging:
   level:
-    root: DEBUG
-    org.springframework.web: TRACE
     tender.ma.medicalapplied: DEBUG
