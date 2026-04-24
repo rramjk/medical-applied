@@ -17,6 +17,7 @@ import tender.ma.medicalapplied.repository.UserHealthProfileRepository;
 import tender.ma.medicalapplied.repository.UserRepository;
 import tender.ma.medicalapplied.service.UserHealthProfileService;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -38,9 +39,15 @@ public class UserHealthProfileServiceImpl implements UserHealthProfileService {
     public UserHealthProfileDto createUserHealthProfile(UUID userId, @Valid UserHealthProfileRequestDto requestDto) {
         log.info("createUserHealthProfile: create user health profile for user id {}", userId);
         User user = getUserById(userId);
-        return mapper.toDto(
-                repository.save(mapUserHealthProfileByUserAndRequest(user, requestDto))
-        );
+
+        Optional<UserHealthProfile> userHealthProfile = repository.getUserHealthProfileByUserId(user.getId());
+        if (userHealthProfile.isEmpty()) {
+            return mapper.toDto(
+                    repository.save(getUserHealthProfileByUserAndRequest(user, requestDto))
+            );
+        } else {
+            throw new BadRequestException(ErrorCode.USER_HEALTH_PROFILE_ALREADY_EXISTS_FOR_USER.getErrorMessage(userId));
+        }
     }
 
     @Override
@@ -65,7 +72,7 @@ public class UserHealthProfileServiceImpl implements UserHealthProfileService {
         return mapper.toDto(healthProfileToDelete);
     }
 
-    private UserHealthProfile mapUserHealthProfileByUserAndRequest(User user, UserHealthProfileRequestDto request) {
+    private UserHealthProfile getUserHealthProfileByUserAndRequest(User user, UserHealthProfileRequestDto request) {
         UserHealthProfile entity = mapper.toEntity(request);
         entity.setUser(user);
 

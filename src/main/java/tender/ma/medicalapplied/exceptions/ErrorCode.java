@@ -2,12 +2,10 @@ package tender.ma.medicalapplied.exceptions;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
 public enum ErrorCode {
-    // AUTH
     AUTHORIZATION_FAILED("Некорректные данные для пользователя"),
     USER_FOR_AUTHORIZE_NOT_FOUND("Не найден пользователь с email '%s'"),
     USER_EMPTY_IN_AUTHORIZE_CONTEXT("Пользователь не содержится в контексте авторизации"),
@@ -17,6 +15,7 @@ public enum ErrorCode {
     USER_HEALTH_PROFILE_NOT_FOUND("Профиль здоровья с id '%s' не найден"),
     USER_HEALTH_PROFILE_AND_USER_NOT_LINKED("Профиль здоровья с id '%s' не принадлежит пользователю с id '%s'"),
     USER_HEALTH_PROFILE_NOT_FOUND_FOR_USER("Профиль здоровья для пользователя с id '%s' не найден"),
+    USER_HEALTH_PROFILE_ALREADY_EXISTS_FOR_USER("Профиль здоровья для пользователя с id '%s' уже существует"),
     REQUEST_FOR_VERIFICATION_ALREADY_EXISTS("Запрос на верификацию пользователя по почте уже отправлен"),
     REQUEST_FOR_VERIFICATION_NOT_FOUND("Не найден запрос на верификацию или он его длительность истекла для пользователя с id '%s'"),
     REQUEST_FOR_VERIFICATION_INCORRECT("Некорректный токен верификации для пользователя с id '%s'"),

@@ -12,6 +12,8 @@ import java.lang.annotation.RetentionPolicy;
 
 @Mapper
 public interface UserHealthProfileMapper {
+
+    @Mapping(target = "userId", source = "userHealthProfile.user.id")
     UserHealthProfileDto toDto(UserHealthProfile userHealthProfile);
 
     UserHealthProfile toEntity(UserHealthProfileRequestDto userHealthProfileRequestDto);
