@@ -33,8 +33,8 @@ public class AiClientImpl implements AiClient {
     private static final String USER_ROLE = "user";
 
     @Override
-    public String getRecommendation(String prompt) {
-        log.debug("getRecommendation: send prompt to AI model. Prompt size: {}", prompt.length());
+    public String sentMessage(String prompt) {
+        log.debug("sentMessage: send prompt to AI model. Prompt size: {}", prompt.length());
         AiChatRequest request = getRequest(prompt);
         AiChatResponse response = sendAiRequest(request);
         validateResponse(response);

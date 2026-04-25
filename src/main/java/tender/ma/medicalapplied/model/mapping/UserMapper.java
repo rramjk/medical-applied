@@ -20,6 +20,7 @@ public interface UserMapper {
     @Mapping(target = "authorities", ignore = true)
     @Mapping(target = "userConsent", ignore = true)
     @Mapping(target = "privacyConsent", ignore = true)
+    @Mapping(target = "emailVerified", ignore = true)
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     User toUpdatedEntity(User updatedEntity, @MappingTarget User mainEntity);
 

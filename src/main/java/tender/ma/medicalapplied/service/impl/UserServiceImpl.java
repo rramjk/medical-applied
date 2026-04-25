@@ -4,11 +4,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import tender.ma.medicalapplied.config.security.utils.AuthUserService;
 import tender.ma.medicalapplied.dto.ResetPasswordRequestDto;
 import tender.ma.medicalapplied.dto.UserCreateRequestDto;
 import tender.ma.medicalapplied.dto.UserDto;
@@ -24,7 +22,6 @@ import tender.ma.medicalapplied.repository.UserRepository;
 import tender.ma.medicalapplied.service.UserService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
@@ -63,9 +60,10 @@ public class UserServiceImpl implements UserService {
     public UserDto updateUser(UUID id, @Valid UserRequestDto userRequestDto) {
         log.info("updateUser: update user by id {}", id);
         User user = getUserByIdOrElseThrow(id);
+        String emailBefore = user.getEmail();
         validateRegisterRequestIfNeed(user, userRequestDto);
         User resultUser = userMapper.toUpdatedEntity(userMapper.toEntityFromRequestDto(userRequestDto), user);
-        if (!user.getEmail().equals(resultUser.getEmail())) {
+        if (!emailBefore.equals(resultUser.getEmail())) {
             resultUser.setEmailVerified(false);
         }
 
