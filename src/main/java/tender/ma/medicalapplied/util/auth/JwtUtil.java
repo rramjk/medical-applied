@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import tender.ma.medicalapplied.model.user.User;
 
 import javax.crypto.SecretKey;
+import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,9 @@ public class JwtUtil {
 
     @Value("${service.token.signing.key}")
     private String jwtSigningKey;
+
+    @Value("${service.token.expiration}")
+    private Duration jwtExpiration = Duration.ofHours(1);
 
     /**
      * Извлечение имени пользователя из токена
@@ -80,7 +84,7 @@ public class JwtUtil {
      * @return токен
      */
     private String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
-        long expirationMs = 1000L * 60 * 60 * 24;
+        long expirationMs = jwtExpiration.toMillis();
         return Jwts.builder()
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
@@ -117,7 +121,6 @@ public class JwtUtil {
      * @return данные
      */
     private Claims extractAllClaims(String token) {
-        SecretKey secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSigningKey));
         return Jwts.parser()
                 .verifyWith(getSigningKey())
                 .build()

@@ -82,6 +82,7 @@ service:
     duration: ${REDIS_TTL_DURATION:PT5H}
 
   token:
+    expiration: ${TOKEN_EXPIRATION:PT5H}
     signing:
       key: ${TOKEN_SIGNING_KEY:123456}
 

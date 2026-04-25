@@ -1,6 +1,7 @@
 package tender.ma.medicalapplied.service;
 
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import tender.ma.medicalapplied.dto.ResetPasswordRequestDto;
 import tender.ma.medicalapplied.dto.UserCreateRequestDto;
 import tender.ma.medicalapplied.dto.UserDto;
@@ -11,6 +12,7 @@ import java.util.UUID;
 
 public interface UserService {
 
+    @PreAuthorize("hasRole('ADMIN')")
     List<UserDto> getUsers();
 
     UserDto getUserById(UUID id);
