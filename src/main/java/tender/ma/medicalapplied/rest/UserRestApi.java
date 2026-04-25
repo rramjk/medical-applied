@@ -39,6 +39,9 @@ public interface UserRestApi {
                                                  @PathVariable UUID healthId,
                                                  @RequestBody UserHealthProfileRequestDto userRequestDto);
 
+    @GetMapping("/{id}/health")
+    UserHealthProfileDto getUserHealthProfileByUserId(@PathVariable UUID id);
+
     @GetMapping("/{id}/health/{healthId}")
     UserHealthProfileDto getUserHealthProfile(@PathVariable UUID id,
                                               @PathVariable UUID healthId);

@@ -230,6 +230,28 @@ public class UserController implements UserRestApi {
         return userHealthService.updateUserHealthProfile(id, healthId, userRequestDto);
     }
 
+    @Operation(summary = "Получить информацию о здоровье пользователя по идентификатору",
+            description = "Данный метод позволяет получить информацию о здоровье пользователя по его идентификатору",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Success",
+                            content = @Content(schema = @Schema(implementation = UserHealthProfileDto.class),
+                                    mediaType = MediaType.APPLICATION_JSON_VALUE)),
+                    @ApiResponse(responseCode = "400", description = "Bad Request + Некорректный запрос",
+                            content = @Content(schema = @Schema(hidden = true))),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized",
+                            content = @Content(schema = @Schema(hidden = true))),
+                    @ApiResponse(responseCode = "403", description = "Forbidden",
+                            content = @Content(schema = @Schema(hidden = true))),
+                    @ApiResponse(responseCode = "404", description = "Not found",
+                            content = @Content(schema = @Schema(hidden = true))),
+                    @ApiResponse(responseCode = "500", description = "Internal Server Error",
+                            content = @Content(schema = @Schema(hidden = true)))
+            })
+    @Override
+    public UserHealthProfileDto getUserHealthProfileByUserId(@Parameter(description = "Идентификатор пользователя") UUID id) {
+        return userHealthService.getUserHealthProfileByUserId(id);
+    }
+
     @Operation(summary = "Получить информацию о здоровье пользователя",
             description = "Данный метод позволяет получить информацию о здоровье пользователя",
             responses = {
