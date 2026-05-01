@@ -2,6 +2,7 @@ package tender.ma.medicalapplied.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class UserHealthProfileRequestDto {
 
     @DecimalMin(value = "0.0", inclusive = false, message = "Weight must be greater than 0.")
+    @NotNull(message = "Weight cannot be null")
     @Schema(description = "Вес пользователя в килограммах", example = "72.5")
     private Double weight;
 
